@@ -31,7 +31,7 @@ export default function LoginPage() {
   useEffect(() => {
     const check = async () => {
       const { data, error } = await supabase.functions.invoke('erp-auth', {
-        body: { action: 'bootstrap_status' },
+        body: { action: 'list_users' },
       });
 
       if (error || data?.error) {
@@ -40,7 +40,7 @@ export default function LoginPage() {
         return;
       }
 
-      setMode(data?.hasUsers ? 'login' : 'setup');
+      setMode((data?.users?.length || 0) > 0 ? 'login' : 'setup');
     };
     check();
   }, []);
