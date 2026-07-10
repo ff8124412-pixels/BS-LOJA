@@ -35,8 +35,7 @@ export default function LoginPage() {
       });
 
       if (error || data?.error) {
-        setError(data?.error || 'Erro ao verificar usuários cadastrados.');
-        setMode('login');
+        setMode('setup');
         return;
       }
 

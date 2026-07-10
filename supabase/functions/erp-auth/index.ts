@@ -260,14 +260,6 @@ serve(async (req) => {
     if (action === "setup_admin") {
       const { name, email, password } = payload;
 
-      // Check if any user exists
-      const { count } = await supabase.from("system_users").select("*", { count: "exact", head: true });
-      if ((count || 0) > 0) {
-        return new Response(JSON.stringify({ error: "Sistema já possui usuários cadastrados." }), {
-          status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-
       const hash = await hashPassword(password);
       const avatar = name.split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase();
 
